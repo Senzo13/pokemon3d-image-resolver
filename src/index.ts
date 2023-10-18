@@ -1,16 +1,14 @@
-import * as fs from "fs";
-import * as path from "path";
+import axios from "axios";
 
 export interface PokemonData {
   name: string;
   version: "front-shiny" | "back-normal" | "back-shiny" | "front-normal";
 }
 
-export const getPokemon = (data: PokemonData): string | null => {
+export const getPokemon = async (data: PokemonData): Promise<string | null> => {
   const { name, version } = data;
 
   let spriteVersion = "";
-
   switch (version) {
     case "front-shiny":
       spriteVersion = "2";
@@ -23,19 +21,21 @@ export const getPokemon = (data: PokemonData): string | null => {
       break;
   }
 
-  const imagePath = path.join("https://github.com/Senzo13/pokemon-image-resolver/blob/main/assets/sprites/", `${name}${spriteVersion}.gif`);
+  const imageUrl = `https://raw.githubusercontent.com/Senzo13/pokemon3d-image-resolver/main/assets/sprites/${name}${spriteVersion}.gif`;
 
-  if (fs.existsSync(imagePath)) {
-    const base64Image = fs.readFileSync(imagePath, "base64");
-    return `data:image/gif;base64,${base64Image}`; 
+  try {
+    const response = await axios.get(imageUrl, { responseType: "arraybuffer" });
+    const base64Image = Buffer.from(response.data, "binary").toString("base64");
+    return `data:image/gif;base64,${base64Image}`;
+  } catch (error) {
+    console.error(`Failed to fetch image for ${name} ${version}:`, error);
+    return null;
   }
-
-  return null;
 };
 
-export const getAllPokemonVersions = (
+export const getAllPokemonVersions = async (
   name: string
-): Record<string, string | null> => {
+): Promise<Record<string, string | null>> => {
   const versions: Array<
     "front-shiny" | "back-normal" | "back-shiny" | "front-normal"
   > = ["front-shiny", "back-normal", "back-shiny", "front-normal"];
@@ -43,7 +43,7 @@ export const getAllPokemonVersions = (
   const results: Record<string, string | null> = {};
 
   for (const version of versions) {
-    const imageData = getPokemon({ name, version });
+    const imageData = await getPokemon({ name, version });
     results[version] = imageData;
   }
 

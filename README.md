@@ -5,17 +5,16 @@
 ## 🌐 Langue
 
 Les noms des Pokémon utilisés dans ce package sont en anglais.<br/>
-Mon package couvre 100% de la génération 1 à 3 puis un un ensembles réduit des gen 4,5,6,7<br/> à cause des limites imposés par NPM
 
 ## 🖼️ Exemple des résultats
 
 Voici un exemple des résultats pour les versions **front-normal**, **front-shiny**, **back-normal** et **back-shiny** de Aerodactyl :
 
 <div style="display: flex; align-items: center;">
-  <img src="./assets/sprites/aerodactyl.gif" alt="Aerodactyl front-normal" />
-  <img src="./assets/sprites/aerodactyl2.gif" alt="Aerodactyl front-shiny" />
-  <img src="./assets/sprites/aerodactyl3.gif" alt="Aerodactyl back-normal" />
-  <img src="./assets/sprites/aerodactyl4.gif" alt="Aerodactyl back-shiny" />
+  <img src="https://raw.githubusercontent.com/Senzo13/pokemon3d-image-resolver/main/assets/sprites/aerodactyl.gif" alt="Aerodactyl front-normal" />
+  <img src="https://raw.githubusercontent.com/Senzo13/pokemon3d-image-resolver/main/assets/sprites/aerodactyl2.gif" alt="Aerodactyl front-shiny" />
+  <img src="https://raw.githubusercontent.com/Senzo13/pokemon3d-image-resolver/main/assets/sprites/aerodactyl3.gif" alt="Aerodactyl back-normal" />
+  <img src="https://raw.githubusercontent.com/Senzo13/pokemon3d-image-resolver/main/assets/sprites/aerodactyl4.gif" alt="Aerodactyl back-shiny" />
 </div>
 
 ## 📦 Installation
@@ -46,7 +45,7 @@ const myPokemon: PokemonData = {
 3. **Récupérez l'image** :
 
 ```typescript
-const imageData = getPokemon(myPokemon);
+const imageData = await getPokemon(myPokemon);
 if (imageData) {
   console.log("Votre image Pokemon en base64 :", imageData);
 } else {
@@ -59,7 +58,7 @@ if (imageData) {
 ```typescript
 import { getAllPokemonVersions } from "pokemon3d-image-resolver";
 
-const pikachuImages = getAllPokemonVersions("pikachu");
+const pikachuImages = await getAllPokemonVersions("pikachu");
 console.log(pikachuImages["front-shiny"]); // Ceci affichera l'image "front-shiny" de Pikachu en base64, ou `null` si elle n'est pas trouvée.
 ```
 
@@ -74,8 +73,11 @@ Une fois que vous avez récupéré la chaîne base64 de l'image de votre Pokémo
 En utilisant le code JavaScript ou autres, cela donnerait :
 
 ```javascript
-const base64Image = getPokemon({ name: "pikachu", version: "front-shiny" });
-const img = `<img src="${base64Image}" />`;
+const base64Image = await getPokemon({
+  name: "pikachu",
+  version: "front-shiny",
+});
+const imgElement = `<img src="${base64Image}" alt="Image de Pikachu" />`;
 ```
 
 ## 🔍 Versions disponibles
@@ -107,37 +109,47 @@ const app = express();
 const PORT = 3000;
 
 // ==== Appelez getAllPokemonVersions avec le name du pokemon provenant de l'URL ==== \\
-app.get("getAll/:name", (req, res) => {
+app.get("/getAll/:name", async (req, res) => {
   const { name } = req.params;
 
-  const versions = getAllPokemonVersions(name);
+  try {
+    const versions = await getAllPokemonVersions(name);
 
-  res.write("<h1>Versions de Pokemon</h1>");
-  for (const version in versions) {
-    if (versions[version]) {
-      res.write(`<h2>${version}</h2>`);
-      res.write(`<img src="${versions[version]}" alt="${version}" />`);
+    res.write("<h1>Versions de Pokemon</h1>");
+    for (const version in versions) {
+      if (versions[version]) {
+        res.write(`<h2>${version}</h2>`);
+        res.write(`<img src="${versions[version]}" alt="${version}" />`);
+      }
     }
-  }
 
-  res.end();
+    res.end();
+  } catch (error) {
+    console.error(`Failed to get versions for ${name}:`, error);
+    res.status(500).send("Internal server error");
+  }
 });
 
 // ==== Appelez getPokemon avec le name du pokemon provenant de l'URL ==== \\
-app.get("/:name", (req, res) => {
+app.get("/:name", async (req, res) => {
   const { name } = req.params;
 
-  const pokemon = getPokemon({ name: "Pikachu", version: "front-normal" });
+  try {
+    const pokemon = await getPokemon({ name: name, version: "front-normal" }); // Utilisation du paramètre "name" plutôt que "Pikachu" en dur.
 
-  res.write("<h1>Pokemon</h1>");
-  res.write(`<h2>${name}</h2>`);
-  res.write(`<img src="${pokemon}" alt="${name}" />`);
+    res.write("<h1>Pokemon</h1>");
+    res.write(`<h2>${name}</h2>`);
+    if (pokemon) {
+      res.write(`<img src="${pokemon}" alt="${name}" />`);
+    } else {
+      res.write(`<p>Image non trouvée pour ${name}.</p>`);
+    }
 
-  res.end();
-});
-
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}/`);
+    res.end();
+  } catch (error) {
+    console.error(`Failed to get image for ${name}:`, error);
+    res.status(500).send("Internal server error");
+  }
 });
 ```
 

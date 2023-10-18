@@ -1,6 +1,6 @@
 {
   "name": "pokemon3d-image-resolver",
-  "version": "1.0.1",
+  "version": "1.0.8",
   "description": "A package to fetch Pokémon images in GIF format, supporting 3D, front-facing, back-facing, and shiny variants.",
   "main": "dist/index.js",
   "scripts": {
@@ -28,7 +28,6 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "fs": "^0.0.1-security",
-    "path": "^0.12.7"
+    "axios": "^1.5.1"
   }
 }
