@@ -1,13 +1,10 @@
 # 🚀 Pokemon Image Resolver 🚀
 
-<div style="display: flex; align-items: center;">
-  <img src="author.png" alt="Créateur" width="60" style="border-radius: 50%;" />
-  <div style="display: flex; flex-direction: column; margin-left: 10px;">
-    <span>Créateur : Lorenzo GIRALT</span>
-    <span>Portfolio : <a href="https://lgiralt.com/">lgiralt.com</a></span>
-  </div>
-</div><br/>
+<img src="author.png" alt="Créateur" width="60" style="border-radius: 50%; float: left; margin-right: 10px;" />
 
+**Créateur :** Lorenzo GIRALT  
+**Portfolio :** [lgiralt.com](https://lgiralt.com/)
+<br/>
 Retrouvez facilement les images de vos Pokemon préférés en qualité GIF !<br/>
 Que ce soit de face, de dos, ou même en version shiny, ce package est là pour vous aider.
 
@@ -97,10 +94,6 @@ const img = `<img src="${base64Image}" />`;
 
 Si vous rencontrez des problèmes ou avez des suggestions, n'hésitez pas à [ouvrir un ticket](https://github.com/Senzo13/pokemon-image-resolver/issues).
 
-## 📝 Licence
-
-ISC
-
 ## Exemple de code et d'utilisation sur Express, pour vous aider.
 
 ```bash
@@ -149,3 +142,7 @@ app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}/`);
 });
 ```
+
+## 📝 Licence
+
+ISC
