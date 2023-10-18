@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/index.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1697614433672,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1697614433672,
+            "name": "Commit-0",
+            "content": "import * as fs from \"fs\";\r\nimport * as path from \"path\";\r\n\r\nconst IMAGES_DIR = path.join(__dirname, \"..\", \"assets\", \"sprite\");\r\n\r\nexport interface PokemonData {\r\n  name: string;\r\n  version: \"front-shiny\" | \"back-normal\" | \"back-shiny\" | \"front-normal\";\r\n}\r\n\r\nexport const getPokemon = (data: PokemonData): string | null => {\r\n  const { name, version } = data;\r\n\r\n  let spriteVersion = \"\";\r\n\r\n  switch (version) {\r\n    case \"front-shiny\":\r\n      spriteVersion = \"2\";\r\n      break;\r\n    case \"back-normal\":\r\n      spriteVersion = \"3\";\r\n      break;\r\n    case \"back-shiny\":\r\n      spriteVersion = \"4\";\r\n      break;\r\n  }\r\n\r\n  const imagePath = path.join(IMAGES_DIR, `${name}${spriteVersion}.gif`);\r\n\r\n  if (fs.existsSync(imagePath)) {\r\n    const base64Image = fs.readFileSync(imagePath, \"base64\");\r\n    return `data:image/gif;base64,${base64Image}`; // Préfixe pour utilisation directe dans une balise <img>\r\n  }\r\n\r\n  return null;\r\n};\r\n\r\nexport const getAllPokemonVersions = (\r\n  name: string\r\n): Record<string, string | null> => {\r\n  const versions: Array<\r\n    \"front-shiny\" | \"back-normal\" | \"back-shiny\" | \"front-normal\"\r\n  > = [\"front-shiny\", \"back-normal\", \"back-shiny\", \"front-normal\"];\r\n\r\n  const results: Record<string, string | null> = {};\r\n\r\n  for (const version of versions) {\r\n    const imageData = getPokemon({ name, version });\r\n    results[version] = imageData;\r\n  }\r\n\r\n  return results;\r\n};\r\n"
+        }
+    ]
+}

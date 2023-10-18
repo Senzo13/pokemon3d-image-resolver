@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 
-const IMAGES_DIR = path.join(__dirname, "..", "assets", "pokemon-sprite");
+const IMAGES_DIR = path.join(__dirname, "..", "assets", "sprites");
 
 export interface PokemonData {
   name: string;
