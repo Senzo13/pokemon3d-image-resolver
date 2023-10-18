@@ -1,10 +1,11 @@
 # 🚀 Pokemon Image Resolver 🚀
 
-<img src="banner.png" alt="Créateur">
+<img src="https://image.noelshack.com/fichiers/2023/42/3/1697620455-banner.png" alt="Créateur">
 
 ## 🌐 Langue
 
-Les noms des Pokémon utilisés dans ce package sont en anglais.
+Les noms des Pokémon utilisés dans ce package sont en anglais.<br/>
+Mon package couvre 100% de la génération 1 à 3 puis un un ensembles réduit des gen 4,5,6,7<br/> à cause des limites imposés par NPM
 
 ## 🖼️ Exemple des résultats
 
@@ -20,7 +21,7 @@ Voici un exemple des résultats pour les versions **front-normal**, **front-shin
 ## 📦 Installation
 
 ```bash
-npm install pokemon-image-resolver
+npm install pokemon3d-image-resolver
 ```
 
 ## 🛠 Utilisation
@@ -30,7 +31,7 @@ npm install pokemon-image-resolver
 1. **Importez les fonctions et types nécessaires** :
 
 ```typescript
-import { getPokemon, PokemonData } from "pokemon-image-resolver";
+import { getPokemon, PokemonData } from "pokemon3d-image-resolver";
 ```
 
 2. **Définissez les paramètres** :
@@ -56,7 +57,7 @@ if (imageData) {
 ### Récupérer toutes les versions d'un Pokemon
 
 ```typescript
-import { getAllPokemonVersions } from "pokemon-image-resolver";
+import { getAllPokemonVersions } from "pokemon3d-image-resolver";
 
 const pikachuImages = getAllPokemonVersions("pikachu");
 console.log(pikachuImages["front-shiny"]); // Ceci affichera l'image "front-shiny" de Pikachu en base64, ou `null` si elle n'est pas trouvée.
@@ -86,18 +87,21 @@ const img = `<img src="${base64Image}" />`;
 
 ## ❓ Problèmes ou suggestions
 
-Si vous rencontrez des problèmes ou avez des suggestions, n'hésitez pas à [ouvrir un ticket](https://github.com/Senzo13/pokemon-image-resolver/issues).
+Si vous rencontrez des problèmes ou avez des suggestions, n'hésitez pas à [ouvrir un ticket](https://github.com/Senzo13/pokemon3d-image-resolver/issues).
 
 ## Exemple de code et d'utilisation sur Express, pour vous aider.
 
 ```bash
 nom init -y
 npm install express
-npm install pokemon-image-resolver
+npm install pokemon3d-image-resolver
 ```
 
 ```javascript
-const { getPokemon, getAllPokemonVersions } = require("pokemon-image-resolver");
+const {
+  getPokemon,
+  getAllPokemonVersions,
+} = require("pokemon3d-image-resolver");
 const express = require("express");
 const app = express();
 const PORT = 3000;
