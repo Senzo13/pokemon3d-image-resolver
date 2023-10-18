@@ -1,12 +1,6 @@
 # 🚀 Pokemon Image Resolver 🚀
 
-<img src="author.png" alt="Créateur" width="60" style="border-radius: 50%; float: left; margin-right: 10px;" />
-
-**Créateur :** Lorenzo GIRALT  
-**Portfolio :** [lgiralt.com](https://lgiralt.com/)
-<br/>
-Retrouvez facilement les images de vos Pokemon préférés en qualité GIF !<br/>
-Que ce soit de face, de dos, ou même en version shiny, ce package est là pour vous aider.
+<img src="banner.png" alt="Créateur">
 
 ## 🌐 Langue
 
@@ -17,10 +11,10 @@ Les noms des Pokémon utilisés dans ce package sont en anglais.
 Voici un exemple des résultats pour les versions **front-normal**, **front-shiny**, **back-normal** et **back-shiny** de Aerodactyl :
 
 <div style="display: flex; align-items: center;">
-  <img src="./assets/pokemon-sprite/aerodactyl.gif" alt="Aerodactyl front-normal" />
-  <img src="./assets/pokemon-sprite/aerodactyl2.gif" alt="Aerodactyl front-shiny" />
-  <img src="./assets/pokemon-sprite/aerodactyl3.gif" alt="Aerodactyl back-normal" />
-  <img src="./assets/pokemon-sprite/aerodactyl4.gif" alt="Aerodactyl back-shiny" />
+  <img src="./assets/sprites/aerodactyl.gif" alt="Aerodactyl front-normal" />
+  <img src="./assets/sprites/aerodactyl2.gif" alt="Aerodactyl front-shiny" />
+  <img src="./assets/sprites/aerodactyl3.gif" alt="Aerodactyl back-normal" />
+  <img src="./assets/sprites/aerodactyl4.gif" alt="Aerodactyl back-shiny" />
 </div>
 
 ## 📦 Installation
