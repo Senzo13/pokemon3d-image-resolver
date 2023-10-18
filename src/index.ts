@@ -1,8 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
 
-const IMAGES_DIR = path.join(__dirname, "..", "assets", "sprites");
-
 export interface PokemonData {
   name: string;
   version: "front-shiny" | "back-normal" | "back-shiny" | "front-normal";
@@ -25,11 +23,11 @@ export const getPokemon = (data: PokemonData): string | null => {
       break;
   }
 
-  const imagePath = path.join(IMAGES_DIR, `${name}${spriteVersion}.gif`);
+  const imagePath = path.join("https://github.com/Senzo13/pokemon-image-resolver/blob/main/assets/sprites/", `${name}${spriteVersion}.gif`);
 
   if (fs.existsSync(imagePath)) {
     const base64Image = fs.readFileSync(imagePath, "base64");
-    return `data:image/gif;base64,${base64Image}`; // Préfixe pour utilisation directe dans une balise <img>
+    return `data:image/gif;base64,${base64Image}`; 
   }
 
   return null;
