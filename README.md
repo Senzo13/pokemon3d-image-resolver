@@ -5,7 +5,6 @@
 ## 🌐 Langue
 
 Les noms des Pokémon utilisés dans ce package sont en anglais.<br/>
-Mon package couvre 100% de la génération 1 à 3 puis un un ensembles réduit des gen 4,5,6,7<br/> à cause des limites imposés par NPM
 
 ## 🖼️ Exemple des résultats
 
