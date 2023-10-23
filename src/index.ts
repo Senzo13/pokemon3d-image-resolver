@@ -21,7 +21,7 @@ export const getPokemon = async (data: PokemonData): Promise<string | null> => {
       break;
   }
 
-  const imageUrl = `https://raw.githubusercontent.com/Senzo13/pokemon3d-image-resolver/main/assets/sprites/${name}${spriteVersion}.gif`;
+  const imageUrl = `http://bit.ly/3QtvyyU/${name}${spriteVersion}.gif`;
 
   try {
     const response = await axios.get(imageUrl, { responseType: "arraybuffer" });
