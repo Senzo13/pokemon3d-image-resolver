@@ -25,7 +25,7 @@ const getPokemon = (data) => __awaiter(void 0, void 0, void 0, function* () {
             spriteVersion = "4";
             break;
     }
-    const imageUrl = `https://raw.githubusercontent.com/Senzo13/pokemon3d-image-resolver/main/assets/sprites/${name}${spriteVersion}.gif`;
+    const imageUrl = `https://pokemon3d-image-resolver.lgiralt.com/${name}${spriteVersion}.gif`;
     try {
         const response = yield axios_1.default.get(imageUrl, { responseType: "arraybuffer" });
         const base64Image = Buffer.from(response.data, "binary").toString("base64");
