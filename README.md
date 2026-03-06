@@ -1,21 +1,29 @@
-# 🚀 Pokemon Image Resolver 🚀
+# 🎮 Pokemon 3D Image Resolver
 
-<img src="https://image.noelshack.com/fichiers/2023/42/3/1697620455-banner.png" alt="Créateur">
+[![npm version](https://img.shields.io/npm/v/pokemon3d-image-resolver.svg)](https://www.npmjs.com/package/pokemon3d-image-resolver)
+[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
+[![GitHub stars](https://img.shields.io/github/stars/Senzo13/pokemon3d-image-resolver.svg)](https://github.com/Senzo13/pokemon3d-image-resolver/stargazers)
+[![npm downloads](https://img.shields.io/npm/dm/pokemon3d-image-resolver.svg)](https://www.npmjs.com/package/pokemon3d-image-resolver)
 
-## 🌐 Langue
+> Retrieve animated 3D Pokemon sprite GIFs as base64 strings. Supports front, back, normal, and shiny variants for every Pokemon.
 
-Les noms des Pokémon utilisés dans ce package sont en anglais.<br/>
-
-## 🖼️ Exemple des résultats
-
-Voici un exemple des résultats pour les versions **front-normal**, **front-shiny**, **back-normal** et **back-shiny** de Aerodactyl :
-
-<div style="display: flex; align-items: center;">
-  <img src="https://raw.githubusercontent.com/Senzo13/pokemon3d-image-resolver/main/assets/sprites/aerodactyl.gif" alt="Aerodactyl front-normal" />
-  <img src="https://raw.githubusercontent.com/Senzo13/pokemon3d-image-resolver/main/assets/sprites/aerodactyl2.gif" alt="Aerodactyl front-shiny" />
-  <img src="https://raw.githubusercontent.com/Senzo13/pokemon3d-image-resolver/main/assets/sprites/aerodactyl3.gif" alt="Aerodactyl back-normal" />
-  <img src="https://raw.githubusercontent.com/Senzo13/pokemon3d-image-resolver/main/assets/sprites/aerodactyl4.gif" alt="Aerodactyl back-shiny" />
+<div align="center">
+  <img src="https://raw.githubusercontent.com/Senzo13/pokemon3d-image-resolver/main/assets/sprites/aerodactyl.gif" alt="Aerodactyl front normal" width="100" />
+  <img src="https://raw.githubusercontent.com/Senzo13/pokemon3d-image-resolver/main/assets/sprites/aerodactyl2.gif" alt="Aerodactyl front shiny" width="100" />
+  <img src="https://raw.githubusercontent.com/Senzo13/pokemon3d-image-resolver/main/assets/sprites/aerodactyl3.gif" alt="Aerodactyl back normal" width="100" />
+  <img src="https://raw.githubusercontent.com/Senzo13/pokemon3d-image-resolver/main/assets/sprites/aerodactyl4.gif" alt="Aerodactyl back shiny" width="100" />
 </div>
+
+---
+
+## ✨ Features
+
+- **Animated 3D GIF sprites** for every Pokemon
+- **Four sprite variants** — front-normal, front-shiny, back-normal, back-shiny
+- **Base64 output** — ready to embed directly in `<img>` tags
+- **TypeScript support** — fully typed API with exported interfaces
+- **Lightweight** — minimal dependencies, simple async API
+- **Batch retrieval** — fetch all four variants of a Pokemon in a single call
 
 ## 📦 Installation
 
@@ -23,136 +31,147 @@ Voici un exemple des résultats pour les versions **front-normal**, **front-shin
 npm install pokemon3d-image-resolver
 ```
 
-## 🛠 Utilisation
+## 🚀 Quick Start
 
-### Récupérer une image spécifique
-
-1. **Importez les fonctions et types nécessaires** :
+### Get a single sprite
 
 ```typescript
 import { getPokemon, PokemonData } from "pokemon3d-image-resolver";
-```
 
-2. **Définissez les paramètres** :
-
-```typescript
 const myPokemon: PokemonData = {
   name: "pikachu",
   version: "front-shiny",
 };
-```
 
-3. **Récupérez l'image** :
-
-```typescript
 const imageData = await getPokemon(myPokemon);
+
 if (imageData) {
-  console.log("Votre image Pokemon en base64 :", imageData);
+  console.log("Base64 image data:", imageData);
 } else {
-  console.log("Image Pokemon introuvable.");
+  console.log("Pokemon image not found.");
 }
 ```
 
-### Récupérer toutes les versions d'un Pokemon
+### Get all sprite variants
 
 ```typescript
 import { getAllPokemonVersions } from "pokemon3d-image-resolver";
 
-const pikachuImages = await getAllPokemonVersions("pikachu");
-console.log(pikachuImages["front-shiny"]); // Ceci affichera l'image "front-shiny" de Pikachu en base64, ou `null` si elle n'est pas trouvée.
+const allSprites = await getAllPokemonVersions("pikachu");
+
+console.log(allSprites["front-normal"]); // base64 string or null
+console.log(allSprites["front-shiny"]);
+console.log(allSprites["back-normal"]);
+console.log(allSprites["back-shiny"]);
 ```
 
-## 🖼️ Utilisation de la chaîne base64 dans une balise `img`
-
-Une fois que vous avez récupéré la chaîne base64 de l'image de votre Pokémon, vous pouvez l'utiliser directement dans une balise `img` de votre HTML :
-
-```html
-<img src="data:image/gif;base64,CHAINE_BASE64_ICI" alt="Pokemon Image" />
-```
-
-En utilisant le code JavaScript ou autres, cela donnerait :
+### Display in HTML
 
 ```javascript
 const base64Image = await getPokemon({
-  name: "pikachu",
+  name: "charizard",
   version: "front-shiny",
 });
-const imgElement = `<img src="${base64Image}" alt="Image de Pikachu" />`;
+
+// Use directly in an img tag
+const imgTag = `<img src="${base64Image}" alt="Charizard" />`;
 ```
 
-## 🔍 Versions disponibles
+## 📖 API Reference
 
-- **front-normal** : Image standard de face
-- **back-normal** : Image standard de dos
-- **front-shiny** : Image shiny de face
-- **back-shiny** : Image shiny de dos
+### `getPokemon(data: PokemonData): Promise<string | null>`
 
-## ❓ Problèmes ou suggestions
+Fetches a single Pokemon sprite and returns it as a base64-encoded data URI.
 
-Si vous rencontrez des problèmes ou avez des suggestions, n'hésitez pas à [ouvrir un ticket](https://github.com/Senzo13/pokemon3d-image-resolver/issues).
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `data.name` | `string` | Pokemon name in English (lowercase) |
+| `data.version` | `string` | Sprite variant (see below) |
 
-## Exemple de code et d'utilisation sur Express, pour vous aider.
+**Returns:** `Promise<string | null>` — Base64 data URI string, or `null` if not found.
 
-```bash
-nom init -y
-npm install express
-npm install pokemon3d-image-resolver
-```
+### `getAllPokemonVersions(name: string): Promise<Record<string, string | null>>`
+
+Fetches all four sprite variants for a given Pokemon.
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `name` | `string` | Pokemon name in English (lowercase) |
+
+**Returns:** An object with keys `front-normal`, `front-shiny`, `back-normal`, `back-shiny`, each mapping to a base64 string or `null`.
+
+### Sprite Versions
+
+| Version | Description |
+|---------|-------------|
+| `front-normal` | Standard front-facing sprite |
+| `front-shiny` | Shiny front-facing sprite |
+| `back-normal` | Standard back-facing sprite |
+| `back-shiny` | Shiny back-facing sprite |
+
+## 🔧 Express.js Example
 
 ```javascript
-const {
-  getPokemon,
-  getAllPokemonVersions,
-} = require("pokemon3d-image-resolver");
+const { getPokemon, getAllPokemonVersions } = require("pokemon3d-image-resolver");
 const express = require("express");
 const app = express();
-const PORT = 3000;
 
-// ==== Appelez getAllPokemonVersions avec le name du pokemon provenant de l'URL ==== \\
-app.get("/getAll/:name", async (req, res) => {
+app.get("/pokemon/:name", async (req, res) => {
+  const { name } = req.params;
+
+  try {
+    const image = await getPokemon({ name, version: "front-normal" });
+
+    if (image) {
+      res.send(`<img src="${image}" alt="${name}" />`);
+    } else {
+      res.status(404).send("Pokemon not found.");
+    }
+  } catch (error) {
+    res.status(500).send("Internal server error");
+  }
+});
+
+app.get("/pokemon/:name/all", async (req, res) => {
   const { name } = req.params;
 
   try {
     const versions = await getAllPokemonVersions(name);
+    let html = `<h1>${name}</h1>`;
 
-    res.write("<h1>Versions de Pokemon</h1>");
-    for (const version in versions) {
-      if (versions[version]) {
-        res.write(`<h2>${version}</h2>`);
-        res.write(`<img src="${versions[version]}" alt="${version}" />`);
+    for (const [variant, data] of Object.entries(versions)) {
+      if (data) {
+        html += `<h2>${variant}</h2><img src="${data}" alt="${variant}" />`;
       }
     }
 
-    res.end();
+    res.send(html);
   } catch (error) {
-    console.error(`Failed to get versions for ${name}:`, error);
     res.status(500).send("Internal server error");
   }
 });
 
-// ==== Appelez getPokemon avec le name du pokemon provenant de l'URL ==== \\
-app.get("/:name", async (req, res) => {
-  const { name } = req.params;
-
-  try {
-    const pokemon = await getPokemon({ name: name, version: "front-normal" }); // Utilisation du paramètre "name" plutôt que "Pikachu" en dur.
-
-    res.write("<h1>Pokemon</h1>");
-    res.write(`<h2>${name}</h2>`);
-    if (pokemon) {
-      res.write(`<img src="${pokemon}" alt="${name}" />`);
-    } else {
-      res.write(`<p>Image non trouvée pour ${name}.</p>`);
-    }
-
-    res.end();
-  } catch (error) {
-    console.error(`Failed to get image for ${name}:`, error);
-    res.status(500).send("Internal server error");
-  }
-});
+app.listen(3000, () => console.log("Server running on port 3000"));
 ```
 
-## 📝 Licence
+## 🤝 Contributing
 
-ISC
+Contributions are welcome! Feel free to:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/my-feature`)
+3. Commit your changes (`git commit -m "Add my feature"`)
+4. Push to the branch (`git push origin feature/my-feature`)
+5. Open a Pull Request
+
+If you encounter any bugs or have feature requests, please [open an issue](https://github.com/Senzo13/pokemon3d-image-resolver/issues).
+
+## 📝 License
+
+This project is licensed under the [ISC License](https://opensource.org/licenses/ISC).
+
+---
+
+<div align="center">
+  Made with ❤️ by <a href="https://github.com/Senzo13">Lorenzo GIRALT</a>
+</div>
